@@ -41,11 +41,11 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	var addr = flag.String("addr", ":8080", "アプリケーションのアドレス")
+	var host = flag.String("host", ":8080", "アプリケーションのホスト")
 	flag.Parse() //フラグを解釈します
 
 	//Gomniauthのセットアップ
-	gomniauth.SetSecurityKey("セキュリティキー")
+	gomniauth.SetSecurityKey("0505")
 	gomniauth.WithProviders(
 		facebook.New("クライアントID", "秘密の鍵", "http://localhost:8080/auth/callback/facebook"),
 		github.New("a67cb2d7f242fdf92e26", "e1e49ac45c246dce728ac02da4bd7ae2bae6bf8d", "http://localhost:8080/auth/callback/github"),
@@ -63,8 +63,8 @@ func main() {
 	//チャットルームを開始します
 	go r.run()
 	//webサーバーを開始します
-	log.Println("Webサーバーを開始します。ポート: ", *addr)
-	if err := http.ListenAndServe(*addr, nil); err != nil {
+	log.Println("Webサーバーを開始します。ポート: ", *host)
+	if err := http.ListenAndServe(*host, nil); err != nil {
 		log.Fatal("ListenAndServe:", err)
 	}
 }
