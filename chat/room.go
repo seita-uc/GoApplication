@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gorilla/websocket"
 	"github.com/stretchr/objx"
 	"log"
@@ -33,7 +34,6 @@ func newRoom(avatar Avatar) *room {
 		clients: make(map[*client]bool),
 		avatar:  avatar,
 	}
-
 }
 
 func (r *room) run() {
@@ -93,6 +93,7 @@ func (r *room) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		room:     r,
 		userData: objx.MustFromBase64(authCookie.Value),
 	}
+	fmt.Println(authCookie.Value + ": room.goにてクライアントにuserDataとして渡す")
 	r.join <- client
 	defer func() { r.leave <- client }()
 	go client.write()
