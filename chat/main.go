@@ -16,6 +16,11 @@ import (
 	"trace"
 )
 
+var avatars Avatar = TryAvatars{
+	UseFileSystemAvatar,
+	UseAuthAvatar,
+	UseGravatar}
+
 //temp1は1つのテンプレートを表します
 type templateHandler struct {
 	once     sync.Once
@@ -52,7 +57,7 @@ func main() {
 		google.New("491110858799-993hnv8lq85un73os6an3ggisj0vi4hb.apps.googleusercontent.com", "a61qI-gLSTFDXtUCEWtNfTAE", "http://localhost:8080/auth/callback/google"),
 	)
 
-	r := newRoom(UseFileSystemAvatar)
+	r := newRoom()
 	r.tracer = trace.New(os.Stdout)
 
 	//ルート

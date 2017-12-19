@@ -26,11 +26,10 @@ func (c *client) read() {
 		if err := c.socket.ReadJSON(&msg); err == nil {
 			msg.When = time.Now()
 			msg.Name = c.userData["name"].(string)
-			msg.AvatarURL, _ = c.room.avatar.GetAvatarURL(c)
 			fmt.Println("clinet.go msg.AvatarURL:" + msg.AvatarURL)
-			//			if avatarURL, ok := c.userData["avatar_url"]; ok {
-			//				msg.AvatarURL = avatarURL.(string)
-			//			}
+			if avatarURL, ok := c.userData["avatar_url"]; ok {
+				msg.AvatarURL = avatarURL.(string)
+			}
 			c.room.forward <- msg
 		} else {
 			break
