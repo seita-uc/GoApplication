@@ -1,17 +1,15 @@
 package main
 
 import "bufio"
-import "flag"
 import "fmt"
-import "io"
 import "math/rand"
 import "os"
 import "strings"
 import "time"
 
 const (
-	add   = "a"
-	input = "b"
+	add   = "*"
+	input = "a"
 )
 
 var transforms = []string{
@@ -19,30 +17,32 @@ var transforms = []string{
 	add + input}
 
 func main() {
-	var (
-		readfile string
-	)
+	//	var (
+	//		readfile string
+	//	)
+	//
+	//	flag.StringVar(&readfile, "f", "hoge.txt", "read file")
+	//
+	//	flag.Parse()
+	//
+	//	//Read File
+	//	inputFile, err := os.Open(readfile)
+	//	if err != nil {
+	//		fmt.Fprint(os.Stderr, err)
+	//		os.Exit(1)
+	//	}
 
-	flag.StringVar(&readfile, "f", "", "read file")
-	flag.Parse()
+	//	file := bufio.NewReader(inputFile)
 
-	//Read File
-	inputFile, err := os.Open(readfile)
-	if err != nil {
-		fmt.Fprint(os.Stderr, err)
-		os.Exit(1)
-	}
+	var addition = []string{"app", "lets", "go", "get"}
 
-	file := bufio.NewReader(inputFile)
-
-	var addition []string
-	for {
-		s, err := file.ReadString('\n')
-		if err == io.EOF {
-			break
-		}
-		addition = append(addition, strings.Replace(s, "\n", "", -1))
-	}
+	//	for {
+	//		s, err := file.ReadString('\n')
+	//		if err == io.EOF {
+	//			break
+	//		}
+	//		addition = append(addition, strings.Replace(s, "\n", "", -1))
+	//	}
 
 	rand.Seed(time.Now().UTC().UnixNano())
 	s := bufio.NewScanner(os.Stdin)
